@@ -1,0 +1,42 @@
+Oracle社のサイトにアクセスし、自分の環境にあったどちらかのアーカイブをダウンロードする
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+ダウンロードしたものを展開する
+$ tar xvzf jdk-8u74-linux-x64.tar.gz
+
+作成されたディレクトリを/usr/local/lib以下に移動する
+$ sudo mv jdk1.8.0_74 /usr/local/lib
+
+適当なエディタで/etc/profileを開いて、
+$ sudo gedit /etc/profile
+一番下までスクロールし、以下のテキストを追加して保存する
+
+*******************************************
+JAVA_HOME=/usr/local/lib/jdk1.8.0_〇〇
+PATH=$PATH:$JAVA_HOME/bin
+export JAVA_HOME
+export PATH
+*******************************************
+
+profileを更新
+$ source /etc/profile
+
+Java,Javacのバージョンを確認する
+$ java -version
+＊すでに他のバージョンがインストールされている場合、別のバージョンが表示される可能性がある。
+＊例：update-alternatives
+
+
+--------------------------------------
+複数のJDKを管理する場合
+--------------------------------------
+update-alternativesにJDKを登録する
+$ sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/lib/jdk1.8.0_74/bin/java" 1
+$ sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/lib/jdk1.8.0_74/bin/javac" 1
+＊以下、コマンド説明
+＊sudo update-alternatives --install リンクのパス config名 コマンドの実パス 優先度
+＊上記コマンドがJAVA_HOMEを設定することに相当する
+
+必要に応じてJDKを切り替える
+$ sudo update-alternative --config java
+

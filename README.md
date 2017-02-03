@@ -1,1 +1,1 @@
-# ubuntu_jdk
+# ubuntuにjdkをインストールする手順
